@@ -2,6 +2,12 @@
 import { Head, Link } from '@inertiajs/vue3';
 import { ref } from "vue";
 
+import { useDark, useToggle } from '@vueuse/core';
+import Dropdown from '@/Components/Dropdown.vue';
+import DropdownLink from '@/Components/DropdownLink.vue';
+
+const isDark = useDark();
+const toggleDark = useToggle(isDark);
 const sideBar = ref(true);
 
 </script>
@@ -9,14 +15,12 @@ const sideBar = ref(true);
 <template>
     <Head title="Super-Admin Dashboard" />
 
-
-
-    <div class="w-full bg-gradient-to-t from-[#0c101c] to-[#000611]">
+    <div class="w-full bg-slate-200 dark:bg-slate-950">
 
         <div class="w-full relative">
-            <div class="absolute w-full duration-300" :class="{ 'pl-[260px]': sideBar, 'pl-[58px]': !sideBar }">
+            <div class="absolute w-full duration-1000" :class="{ 'pl-[260px]': sideBar, 'pl-[58px]': !sideBar }">
                 <div
-                    class="flex items-center justify-between w-full bg-slate-900 text-gray-400 py-2 h-[50px] border-b border-slate-800">
+                    class="flex items-center justify-between w-full bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-gray-400 py-2 h-[50px] border-b dark:border-slate-800 duration-1000">
                     <div class="px-1">
                         <button type="button" @click="sideBar = !sideBar" class="cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -26,17 +30,20 @@ const sideBar = ref(true);
                             </svg>
                         </button>
                     </div>
-                    <div class="px-1">
+                    <div class="px-4">
                         <ul class="flex items-center space-x-2">
                             <li class="cursor-pointer">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                    stroke="currentColor" class="w-4 h-4">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
-                                </svg>
-
+                                <button type="button"
+                                    class=" bg-slate-300 dark:bg-slate-500 text-slate-950 dark:text-slate-200 rounded-sm p-1 duration-1000"
+                                    @click="toggleDark()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+                                    </svg>
+                                </button>
                             </li>
-                            <li class="cursor-pointer">
+                            <li class="cursor-pointer rounded-sm">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                     stroke="currentColor" class="w-5 h-5">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -44,7 +51,7 @@ const sideBar = ref(true);
                                 </svg>
 
                             </li>
-                            <li class="cursor-pointer">
+                            <li class="cursor-pointer rounded-sm">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                     stroke="currentColor" class="w-5 h-5">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -52,7 +59,7 @@ const sideBar = ref(true);
                                 </svg>
 
                             </li>
-                            <li class="cursor-pointer">
+                            <li class="cursor-pointer rounded-sm">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                     stroke="currentColor" class="w-5 h-5">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -60,28 +67,43 @@ const sideBar = ref(true);
                                 </svg>
 
                             </li>
-                            <li class="cursor-pointer">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                    stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                </svg>
-
-                                <div
-                                    class=" absolute right-0 mt-3 w-40 px-2 hidden bg-slate-900 border border-slate-700 h-28">
-                                    <ul class=" w-full">
-                                        <li :class="{ 'justify-center': !sideBar }">
-                                            <Link :href="route('dashboard')"
-                                                class="flex items-center space-x-1 cursor-pointer text-white p-2 hover:bg-slate-800 duration-300 rounded-md">
+                            <li class="cursor-pointer rounded-sm">
+                                <div class="relative">
+                                    <Dropdown align="right">
+                                        <template #trigger>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                                                    d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                             </svg>
-                                            <span :class="{ 'hidden': !sideBar }">Role Manage</span>
-                                            </Link>
-                                        </li>
-                                    </ul>
+                                        </template>
+
+                                        <template #content>
+
+
+                                            <DropdownLink :href="route('profile.show')">
+                                                Profile
+                                            </DropdownLink>
+
+                                            <DropdownLink :href="route('profile.show')">
+                                                Profile
+                                            </DropdownLink>
+
+                                            <DropdownLink :href="route('profile.show')">
+                                                Profile
+                                            </DropdownLink>
+
+
+                                            <div class="border-t border-gray-200" />
+
+                                            <!-- Authentication -->
+                                            <form @submit.prevent="logout">
+                                                <DropdownLink as="button">
+                                                    Log Out
+                                                </DropdownLink>
+                                            </form>
+                                        </template>
+                                    </Dropdown>
                                 </div>
 
                             </li>
@@ -92,18 +114,18 @@ const sideBar = ref(true);
         </div>
 
         <div class="flex w-full">
-            <div class="bg-slate-900 border-r border-slate-800 duration-300 relative"
+            <div class="bg-slate-100 dark:bg-slate-900 border-r dark:border-slate-800 relative text-slate-800 dark:text-gray-400  duration-1000"
                 :class="{ 'min-w-[260px]': sideBar, 'min-w-[50px]': !sideBar }">
                 <div :class="{ 'justify-center': !sideBar }"
-                    class="w-full flex items-center h-[50px] border-b border-slate-800 mb-3">
-                    <h1 class="text-white text-2xl px-3 font-bold"> {{ sideBar ? 'SoftLogic' : 'SL' }}</h1>
+                    class="w-full flex items-center h-[50px] border-b dark:border-slate-800 mb-1">
+                    <h1 class="text-2xl px-3 font-bold"> {{ sideBar ? 'SoftLogic' : 'SL' }}</h1>
                 </div>
 
                 <div class="h-[calc(100vh-50px)] overflow-y-auto">
                     <ul class="px-3 w-full text-sm">
                         <li :class="{ 'justify-center': !sideBar }">
                             <Link :href="route('dashboard')"
-                                class="flex items-center space-x-1 cursor-pointer text-white p-2 hover:bg-slate-800 duration-300 rounded-md">
+                                class="flex items-center space-x-1 cursor-pointer p-2 hover:bg-slate-800 duration-1000 rounded-md hover:text-slate-200 border-b border-slate-300 dark:border-slate-800">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -114,9 +136,10 @@ const sideBar = ref(true);
                         </li>
 
 
-                        <li :class="{ 'justify-center': !sideBar }">
+                        <li :class="{ 'justify-center': !sideBar }"
+                            class=" border-b border-slate-300 dark:border-slate-800">
                             <Link :href="route('dashboard')"
-                                class="flex items-center space-x-1 cursor-pointer text-white p-2 hover:bg-slate-800 duration-300 rounded-md">
+                                class="flex items-center space-x-1 cursor-pointer p-2 hover:bg-slate-800 duration-1000 rounded-md hover:text-slate-200 border-b border-slate-300 dark:border-slate-800">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -125,10 +148,10 @@ const sideBar = ref(true);
                             <span :class="{ 'hidden': !sideBar }">Role Manage</span>
                             </Link>
 
-                            <ul class="text-white" id="submenu" data-parent="">
+                            <ul class="" id="submenu" data-parent="">
                                 <li>
                                     <Link :href="route('dashboard')"
-                                        class="flex items-center space-x-1 cursor-pointer text-white p-2 hover:bg-slate-800 duration-300 rounded-md">
+                                        class="flex items-center space-x-1 cursor-pointer p-2 hover:bg-slate-800 duration-1000 rounded-md hover:text-slate-200 border-b border-slate-300 dark:border-slate-800">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -139,7 +162,7 @@ const sideBar = ref(true);
                                 </li>
                                 <li>
                                     <Link :href="route('dashboard')"
-                                        class="flex items-center space-x-1 cursor-pointer text-white p-2 hover:bg-slate-800 duration-300 rounded-md">
+                                        class="flex items-center space-x-1 cursor-pointer p-2 hover:bg-slate-800 duration-1000 rounded-md hover:text-slate-200 border-b border-slate-300 dark:border-slate-800">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -151,7 +174,7 @@ const sideBar = ref(true);
 
                                 <li>
                                     <Link :href="route('dashboard')"
-                                        class="flex items-center space-x-1 cursor-pointer text-white p-2 hover:bg-slate-800 duration-300 rounded-md">
+                                        class="flex items-center space-x-1 cursor-pointer p-2 hover:bg-slate-800 duration-1000 rounded-md hover:text-slate-200 border-b border-slate-300 dark:border-slate-800">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -163,7 +186,7 @@ const sideBar = ref(true);
                             </ul>
                         </li>
                         <li :class="{ 'justify-center': !sideBar }"
-                            class="flex items-center space-x-1 cursor-pointer text-white p-2 hover:bg-slate-800 duration-300 rounded-md">
+                            class="flex items-center space-x-1 cursor-pointer p-2 hover:bg-slate-800 duration-1000 rounded-md hover:text-slate-200 border-b border-slate-300 dark:border-slate-800">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -173,7 +196,7 @@ const sideBar = ref(true);
                             <span :class="{ 'hidden': !sideBar }">User Manage</span>
                         </li>
                         <li :class="{ 'justify-center': !sideBar }"
-                            class="flex items-center space-x-1 cursor-pointer text-white p-2 hover:bg-slate-800 duration-300 rounded-md">
+                            class="flex items-center space-x-1 cursor-pointer p-2 hover:bg-slate-800 duration-1000 rounded-md hover:text-slate-200 border-b border-slate-300 dark:border-slate-800">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -182,7 +205,7 @@ const sideBar = ref(true);
                             <span :class="{ 'hidden': !sideBar }">Dashboard</span>
                         </li>
                         <li :class="{ 'justify-center': !sideBar }"
-                            class="flex items-center space-x-1 cursor-pointer text-white p-2 hover:bg-slate-800 duration-300 rounded-md">
+                            class="flex items-center space-x-1 cursor-pointer p-2 hover:bg-slate-800 duration-1000 rounded-md hover:text-slate-200 border-b border-slate-300 dark:border-slate-800">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -195,7 +218,7 @@ const sideBar = ref(true);
                         </li>
 
                         <li :class="{ 'justify-center': !sideBar }"
-                            class="flex items-center space-x-1 cursor-pointer text-white p-2 hover:bg-slate-800 duration-300 rounded-md">
+                            class="flex items-center space-x-1 cursor-pointer p-2 hover:bg-slate-800 duration-1000 rounded-md hover:text-slate-200 border-b border-slate-300 dark:border-slate-800">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-5 h-5">
                                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -211,46 +234,58 @@ const sideBar = ref(true);
 
             <div class="w-full h-[calc(100vh-48px)] mt-12 overflow-y-auto p-3">
                 <div class=" grid grid-cols-1 sm:grid-cols-2 gap-3 py-2">
-                    <div class="bg-slate-900 hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
+                    <div
+                        class="bg-slate-300 hover:bg-slate-400 dark:bg-slate-900 dark:hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
                         <h1>Card</h1>
                     </div>
-                    <div class="bg-slate-900 hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
+                    <div
+                        class="bg-slate-300 hover:bg-slate-400 dark:bg-slate-900 dark:hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
                         <h1>Card</h1>
                     </div>
                 </div>
                 <div class=" grid grid-cols-2 sm:grid-cols-3 gap-3 py-2">
-                    <div class="bg-slate-900 hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
+                    <div
+                        class="bg-slate-300 hover:bg-slate-400 dark:bg-slate-900 dark:hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
                         <h1>Card</h1>
                     </div>
-                    <div class="bg-slate-900 hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
+                    <div
+                        class="bg-slate-300 hover:bg-slate-400 dark:bg-slate-900 dark:hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
                         <h1>Card</h1>
                     </div>
-                    <div class="bg-slate-900 hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
+                    <div
+                        class="bg-slate-300 hover:bg-slate-400 dark:bg-slate-900 dark:hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
                         <h1>Card</h1>
                     </div>
                 </div>
                 <div class=" grid grid-cols-2 sm:grid-cols-4 gap-3 py-2">
-                    <div class="bg-slate-900 hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
+                    <div
+                        class="bg-slate-300 hover:bg-slate-400 dark:bg-slate-900 dark:hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
                         <h1>Card</h1>
                     </div>
-                    <div class="bg-slate-900 hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
+                    <div
+                        class="bg-slate-300 hover:bg-slate-400 dark:bg-slate-900 dark:hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
                         <h1>Card</h1>
                     </div>
-                    <div class="bg-slate-900 hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
+                    <div
+                        class="bg-slate-300 hover:bg-slate-400 dark:bg-slate-900 dark:hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
                         <h1>Card</h1>
                     </div>
-                    <div class="bg-slate-900 hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
+                    <div
+                        class="bg-slate-300 hover:bg-slate-400 dark:bg-slate-900 dark:hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
                         <h1>Card</h1>
                     </div>
                 </div>
                 <div class=" grid grid-cols-2 sm:grid-cols-3 gap-3 py-2">
-                    <div class="bg-slate-900 hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
+                    <div
+                        class="bg-slate-300 hover:bg-slate-400 dark:bg-slate-900 dark:hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
                         <h1>Card</h1>
                     </div>
-                    <div class="bg-slate-900 hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
+                    <div
+                        class="bg-slate-300 hover:bg-slate-400 dark:bg-slate-900 dark:hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
                         <h1>Card</h1>
                     </div>
-                    <div class="bg-slate-900 hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
+                    <div
+                        class="bg-slate-300 hover:bg-slate-400 dark:bg-slate-900 dark:hover:bg-slate-800 duration-1000 h-64 w-full rounded-sm">
                         <h1>Card</h1>
                     </div>
                 </div>
